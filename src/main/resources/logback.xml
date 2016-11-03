@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="GELF UDP APPENDER" class="me.moocar.logbackgelf.GelfUDPAppender">
+        <remoteHost>graylog.uat.mon.ovotech.org.uk</remoteHost>
+        <port>12201</port>
+        <encoder class="me.moocar.logbackgelf.GZIPEncoder">
+            <layout class="me.moocar.logbackgelf.GelfLayout">
+                <staticAdditionalField>service:delivery-service-prototype</staticAdditionalField>
+                <host>${HOSTNAME}</host>
+                <useThreadName>true</useThreadName>
+                <includeFullMDC>true</includeFullMDC>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="akka" level="INFO" />
+    <logger name="org.apache" level="WARN" />
+
+    <root level="INFO">
+        <appender-ref ref="GELF UDP APPENDER"/>
+    </root>
+
+</configuration>
