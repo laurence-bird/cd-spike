@@ -23,7 +23,7 @@ DockerPackage.settings
 val dockerLoginTask = TaskKey[Unit]("dockerLogin", "Log in to Amazon ECR")
 dockerLoginTask := {
   import sys.process._
-  "aws ecr get-login" #| "bash" !
+  "aws --region eu-west-1 ecr get-login" #| "bash" !
 }
 publish in Docker <<= (publish in Docker).dependsOn(dockerLoginTask)
 
