@@ -34,7 +34,7 @@ object DockerPackage {
     },
     dockerConfigTask := {
       import sys.process._
-      "aws --profile comms s3 sync s3://ovo-comms-platform-config/service-config/uat/delivery-service ./src/main/resources/uat" !
+      "aws --region eu-west-1 s3 sync s3://ovo-comms-platform-config/service-config/uat/delivery-service ./src/main/resources/uat" !
     },
     publish in Docker <<= (publish in Docker)
       .dependsOn(dockerLoginTask)
