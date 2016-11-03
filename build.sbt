@@ -21,7 +21,6 @@ enablePlugins(JavaServerAppPackaging, DockerPlugin)
 DockerPackage.settings
 
 // ScalaPB code generation
-PB.protoSources in Compile := Seq(baseDirectory.value / "../protobuf-schemas")
 PB.targets in Compile := Seq(
   scalapb.gen() -> (sourceManaged in Compile).value
 )

@@ -1,0 +1,35 @@
+syntax = "proto3";
+option java_package = "com.ovoenergy.comms.protobuf";
+
+import "common.proto";
+
+message TriggerComm {
+  Metadata metadata = 1;
+  CommunicationCoordinates communication_coordinates = 2;
+  string customerId = 3;
+  map<string, string> data = 4;
+  string friendlyDescription = 5; // just for the demo
+}
+
+message ComposeEmail {
+
+  message Recipient {
+    string identifier = 1;
+  }
+
+  Metadata metadata = 1;
+  CommunicationCoordinates communication_coordinates = 2;
+  repeated Recipient recipients = 3;
+  map<string, string> data = 4;
+  string friendlyDescription = 5; // just for the demo
+
+}
+
+message SendTransactionalEmail {
+  Metadata metadata = 1;
+  string from = 2;
+  string to = 3;
+  string subject = 4;
+  string body = 5;
+  string friendlyDescription = 6; // just for the demo
+}

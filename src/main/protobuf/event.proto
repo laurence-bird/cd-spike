@@ -1,0 +1,25 @@
+syntax = "proto3";
+option java_package = "com.ovoenergy.comms.protobuf";
+
+import "common.proto";
+
+message EmailDeliveryEvent {
+
+  enum EventType {
+    QUEUED = 0;
+    DELIVERED = 1;
+    OPENED = 2;
+    CLICKED_LINK = 3;
+  }
+
+  Metadata metadata = 1;
+  EventType eventType = 2;
+  string messageId = 3;
+  string recipient = 4;
+  string linkUrl = 5;
+  string friendlyDescription = 6; // just for the demo
+
+  // TODO customer ID? We could pass this (and other useful metadata) as a custom param when we queue the email
+
+}
+

@@ -1,0 +1,20 @@
+syntax = "proto3";
+option java_package = "com.ovoenergy.comms.protobuf";
+
+message Metadata {
+  string timestamp_iso8601 = 1;
+  string uuid = 2;
+  string source = 3; // Some kind of info to help identify who generated this message
+}
+
+enum CommunicationType {
+  REGULATORY = 0;
+  SERVICE = 1;
+  MARKETING = 2;
+}
+
+message CommunicationCoordinates {
+  string name = 1;
+  string version = 2;
+  CommunicationType type = 3;
+}
