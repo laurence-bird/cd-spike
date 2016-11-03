@@ -2,6 +2,13 @@ machine:
   services:
     - docker
 
+dependencies:
+  # Cache the resolution-cache and build streams to speed things up
+  cache_directories:
+    - "~/.sbt"
+    - "target/resolution-cache"
+    - "project/target/resolution-cache"
+
 test:
   override:
     - sbt test
