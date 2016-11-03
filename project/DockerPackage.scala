@@ -14,7 +14,7 @@ object DockerPackage {
   )
 
   val settings = Seq(
-    packageName in Docker := "delivery-service-prototype",
+    packageName in Docker := "delivery-service-prototype-circleci",
     dockerRepository := Some("852955754882.dkr.ecr.eu-west-1.amazonaws.com"),
     dockerUpdateLatest := true,
     dockerExposedPorts := Seq(8080),

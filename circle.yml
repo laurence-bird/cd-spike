@@ -3,15 +3,15 @@ test:
   override:
     - sbt test
     #- sbt serviceTests:test
+    - sbt docker:publishLocal
 
 deployment:
   uat_and_prd:
     branch: master
     owner: ovotech
     commands:
-      - ci_scripts/build_docker_image.sh UAT
+      - ci_scripts/publish_docker_image.sh
       - ci_scripts/deploy_to_ecs.sh UAT
       - ci_scripts/run_e2e_tests.sh
-      - ci_scripts/build_docker_image.sh PRD
       - ci_scripts/deploy_to_ecs.sh PRD
       - ci_scripts/comment_on_last_merged_pr.sh
