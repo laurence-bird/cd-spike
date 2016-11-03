@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git_sha1=${CIRCLE_SHA1:$(git rev-parse HEAD)}
+git_sha1="${CIRCLE_SHA1:$(git rev-parse HEAD)}"
 
 echo Publishing docker image to ECR with version $git_sha1
 
