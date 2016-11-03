@@ -20,12 +20,6 @@ libraryDependencies ++= Seq(
 
 enablePlugins(JavaServerAppPackaging, DockerPlugin)
 DockerPackage.settings
-val dockerLoginTask = TaskKey[Unit]("dockerLogin", "Log in to Amazon ECR")
-dockerLoginTask := {
-  import sys.process._
-  "aws --region eu-west-1 ecr get-login" #| "bash" !
-}
-publish in Docker <<= (publish in Docker).dependsOn(dockerLoginTask)
 
 // ScalaPB code generation
 PB.targets in Compile := Seq(
