@@ -28,4 +28,4 @@ PB.targets in Compile := Seq(
 
 // Make ScalaTest write test reports that CirceCI understands
 val testReportsDir = sys.env.getOrElse("CI_REPORTS", "target/reports")
-//testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-u", testReportsDir)
+testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-o", "-u", testReportsDir)
