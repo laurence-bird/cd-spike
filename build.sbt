@@ -35,3 +35,8 @@ PB.targets in Compile := Seq(
 // Make ScalaTest write test reports that CirceCI understands
 val testReportsDir = sys.env.getOrElse("CI_REPORTS", "target/reports")
 testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-o", "-u", testReportsDir)
+
+// Service tests
+lazy val ServiceTest = config("st").extend(Test)
+configs(ServiceTest)
+inConfig(ServiceTest)(Defaults.testSettings)

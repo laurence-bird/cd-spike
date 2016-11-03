@@ -5,7 +5,7 @@ machine:
 test:
   override:
     - sbt test
-    #- sbt serviceTests:test
+    - sbt st:test
     - sbt docker:publishLocal
 
 deployment:
