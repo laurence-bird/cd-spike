@@ -56,7 +56,7 @@ register_task_definition() {
 
 update_service() {
   if [[ $(aws ecs update-service --cluster "$cluster_name" --service "$service_name" --task-definition "$revisionArn" | \
-    $JQ '.service.taskDefinition') != $revisionArn ]]
+    $JQ '.service.taskDefinition') != "$revisionArn" ]]
   then
     echo "Error updating service."
     return 1
@@ -66,7 +66,7 @@ update_service() {
 await_stabilization() {
   # wait for older revisions to disappear
   for attempt in {1..30}; do
-    if stale=$(aws ecs describe-services --cluster $cluster_name --services sample-webapp-service | \
+    if stale=$(aws ecs describe-services --cluster "$cluster_name" --services "$service_name" | \
       $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revisionArn\") | .taskDefinition")
     then
       echo "Waiting for stale deployments:"
