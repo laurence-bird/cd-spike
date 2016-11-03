@@ -1,0 +1,8 @@
+delivery-service-prototype-circleci:
+  image: 852955754882.dkr.ecr.eu-west-1.amazonaws.com/delivery-service-prototype-circleci:0.1-SNAPSHOT
+
+  environment:
+    ENV: "local"
+    MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+    MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
+    KAFKA_HOSTS: ${KAFKA_HOSTS}

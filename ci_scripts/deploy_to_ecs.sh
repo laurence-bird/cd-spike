@@ -13,6 +13,7 @@ service_name=${2:-$CIRCLE_PROJECT_REPONAME}
 task_family=$service_name
 cluster_name="ecs-cluster-$environment"
 git_sha1="${CIRCLE_SHA1:-$(git rev-parse HEAD)}"
+environment_lowercase="${environment,,}"
 
 echo "Deploying version $git_sha1 to ECS in $environment environment."
 
@@ -20,29 +21,28 @@ echo "Deploying version $git_sha1 to ECS in $environment environment."
 JQ="jq --raw-output --exit-status"
 
 configure_aws_cli(){
-	aws --version
-	aws configure set default.region eu-west-1
-	aws configure set default.output json
+  aws --version
+  aws configure set default.region eu-west-1
+  aws configure set default.output json
 }
 
 make_container_definitions(){
-	template='[
-		{
-			"name": "%s",
-			"image": "%s.dkr.ecr.eu-west-1.amazonaws.com/%s:%s",
-			"essential": true,
-			"memory": 200,
-			"cpu": 10,
-			"portMappings": [
-				{
-					"containerPort": 8080,
-					"hostPort": 80
-				}
-			]
-		}
-	]'
+  template='[
+  {
+    "name": "%s",
+    "image": "%s.dkr.ecr.eu-west-1.amazonaws.com/%s:%s",
+    "essential": true,
+    "memory": 512,
+    "environment": [
+    {
+      "name": "ENV",
+      "value": "%s"
+    }
+    ]
+  }
+  ]'
 
-	container_definitions=$(printf "$template" $service_name $AWS_ACCOUNT_ID $service_name $git_sha1)
+  container_definitions=$(printf "$template" $service_name $AWS_ACCOUNT_ID $service_name $git_sha1 $environment_lowercase)
 }
 
 register_task_definition() {
